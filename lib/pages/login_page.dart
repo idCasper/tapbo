@@ -1,12 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
+  final String currentLanguage;
+
+  const LoginPage({Key key, this.currentLanguage}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   bool switchVisible = false;
+  String currentLanguage = 'en';
 
   @override
   Widget build(BuildContext context) {
@@ -14,105 +20,183 @@ class _LoginPageState extends State<LoginPage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Color(0xF3F9FFFF),
+      backgroundColor: Color.fromRGBO(85, 215, 187, 1),
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: 0,
-            right: 0,
-            width: width * 0.7,
-            height: height * 0.16,
-            child: Image.asset('assets/images/wave.png', fit: BoxFit.fill,)
-          ),
-          Positioned(
-            left: 20,
-            top: 60,
-            child: Text('Login',
-              style: TextStyle(
-                  color: Color.fromRGBO(49, 39, 79, 1),
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-              ),
+            top: 50,
+            right: 28,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () => changeLanguage('en'),
+                  child: Container(
+                      width: width * 0.1,
+                      height: width * 0.1,
+                      decoration: BoxDecoration(
+                        color: currentLanguage == 'en' ? Color.fromRGBO(245, 247, 249, 1) : null,
+                        border: Border.all(color: Color.fromRGBO(245, 247, 249, 1)),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Center(
+                        child: Text('EN', style: TextStyle(color: currentLanguage == 'en' ? Color.fromRGBO(85, 215,
+    187, 1) : Color.fromRGBO(245, 247, 249, 1), fontWeight: FontWeight.bold),),
+                      )
+                  ),
+                ),
+                Padding(padding: EdgeInsets.only(left: 8)),
+                GestureDetector(
+                  onTap: () => changeLanguage('id'),
+                  child: Container(
+                      width: width * 0.1,
+                      height: width * 0.1,
+                      decoration: BoxDecoration(
+                        color: currentLanguage == 'id' ? Color.fromRGBO(245, 247, 249, 1) : null,
+                        border: Border.all(color: Color.fromRGBO(245, 247, 249, 1)),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Center(
+                        child: Text('ID', style: TextStyle(color: currentLanguage == 'id' ? Color.fromRGBO(85, 215,
+    187, 1) : Color.fromRGBO(245, 247, 249, 1),
+                            fontWeight: FontWeight.bold),),
+                      )
+                  ),
+                ),
+              ],
             ),
           ),
           Positioned(
-            left: 0,
             bottom: 0,
-            width: width * 0.7,
-            height: height * 0.3,
-            child: Image.asset('assets/images/wave-1.png', fit: BoxFit.fill,)
-          ),
-          Center(
-            child: SizedBox(
-              width: width * 0.9,
-              height: height * 0.37,
-              child: Card(
-                color: Color(0xF3F9FFFF),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.person),
-                          labelText: 'Username',
+            width: width,
+            height: height * 0.69,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color.fromRGBO(245, 247, 249, 1),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(18),
+                      topRight: Radius.circular(18)
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.05),
+                        blurRadius: 10,
+                        spreadRadius: 6,
+                        offset: Offset(0, -6.0)
+                    )
+                  ]
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(28, 0, 28, 48),
+                    child: Column(
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text('Welcome to PELAS',
+                            style: TextStyle(
+                              color: Color.fromRGBO(47, 46, 65, 1),
+                              fontWeight: FontWeight.bold,
+                              fontSize: width * 0.07,
+                            ),),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text('Pembelajaran Bahasa Indonesia',
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold,
+                              fontSize: width * 0.05,
+                            ),),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(28, 0, 28, 12),
+                    height: height * 0.06,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.person),
+                        labelText: 'Username',
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(28, 0, 28, 0),
+                    height: height * 0.06,
+                    child: TextField(
+                      obscureText: !switchVisible,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.vpn_key),
+                        labelText: 'Password',
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 28),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Text("Make password visible", style: TextStyle(fontSize: 12, color: Colors.black54),),
+                        Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                                value: switchVisible,
+                                onChanged: (value) => setState(() => switchVisible = value)
+                            )
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(28, 20, 28, 0),
+                    width: width,
+                    child: RaisedButton(
+                      color: Color.fromRGBO(85, 215, 187, 1),
+                      onPressed: () => Navigator.popAndPushNamed(context, '/quiz'),
+                      child: Text('Log in',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(245, 247, 249, 1)
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(top: 0, right: 8, bottom: 0, left: 8),
-                      child: Column(
-                        children: <Widget>[
-                          TextField(
-                            obscureText: !switchVisible,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.vpn_key),
-                              labelText: 'Password',
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Text("Make password visible", style: TextStyle(fontSize: 12, color: Colors.black54),),
-                              Transform.scale(
-                                  scale: 0.8,
-                                  child: Switch(
-                                      value: switchVisible,
-                                      onChanged: (value) => setState(() => switchVisible = value)
-                                  )
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 0, right: 8, bottom: 8, left: 8),
-                      child: RaisedButton(
-                        color: Colors.greenAccent,
-                        onPressed: () => Navigator.popAndPushNamed(context, '/home'),
-                        child: Text('Login', style: TextStyle(color: Colors.white),),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(28, 8, 28, 70),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text("Don't have an account ? ", style: TextStyle(color: Colors.grey),),
                         GestureDetector(
-                          onTap: () => Navigator.pushReplacementNamed(context, '/register'),
-                          child: Text("Register", style: TextStyle(fontWeight: FontWeight.w600),)
+                            onTap: () => Navigator.pushReplacementNamed(context, '/register'),
+                            child: Text("Sign up", style: TextStyle(fontWeight: FontWeight.w600),)
                         ),
                       ],
-                    )
-                  ],
-                ),
-              ),
+                    ),
+                  )
+                ],
+              )
             ),
-          )
+          ),
         ],
       ),
     );
+  }
+
+  void changeLanguage(String locale) {
+    setState(() {
+      currentLanguage = locale;
+      if(locale == 'id') {
+
+      }else if(locale == 'en') {
+
+      }
+    });
   }
 }
